@@ -19,7 +19,7 @@ app = Flask(__name__)
 @app.route("/", methods=["GET", "POST", "DELETE"]) # main page
 def home():
     return render_template(
-    "home.html",
+    "index.html",
     # news_cards = news
     )
 
