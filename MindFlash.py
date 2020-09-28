@@ -2,6 +2,7 @@ from flask import Flask, render_template
 import requests
 import sys
 import json
+from card import *
 
 # news_request = "https://www.example.com"
 
