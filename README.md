@@ -8,7 +8,7 @@ Este proyecto tiene como objetivo, crear una herramienta de estudio para estudia
 
 Hay pocas herramientas en línea para estudiar y las aplicaciones existentes ofrecen muchas funciones innecesarias. Como estudiantes, queremos aprender el material, no como usar la plataforma. Queremos ofrecer una herramienta simple de usar, que mejore la memoria y en consecuencia, promueva el aprendizaje.
 
-##OVERVIEW 
+## OVERVIEW 
 * Website 
 * flashcards (templates)
     * Reliable text formatting
