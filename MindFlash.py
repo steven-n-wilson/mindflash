@@ -27,6 +27,8 @@ def home():
         # news_cards = news
     )
 
+# hay que agregar rutas para las rutas de crear y nosotros
+
 
 if __name__ == "__main__":
     debug = True
