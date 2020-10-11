@@ -1,11 +1,11 @@
 
 class card_base:
     def __init__(self, frontside, backside):
-        self.front = frontside
-        self.back = backside
-    
+        self.frontside = frontside
+        self.backside = backside
+
     def front(self):
-        return self.front
+        return self.frontside
 
     def back(self):
-        return self.back
+        return self.backside
