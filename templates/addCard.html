@@ -91,9 +91,40 @@
         <label for="exampleInputPassword1">Backside</label>
         <input class="form-control" id="exampleInputPassword1" placeholder="Enter content">
       </div>
-      <button type="submit" class="btn btn-primary">Add Card</button>
+      <button id='AddCard' type="submit" class="btn btn-primary">Add Card</button>
+      <!-- <div id="msg">
+        <pre></pre>
+      </div> -->
     </form>
   </main>
+
+  <script>
+    let cards = [];
+    const addCard = (ev) => {
+      ev.preventDefault();
+      let card = {
+        id: Date.now(),
+        frontside: document.getElementById('exampleInputEmail1').value,
+        backside: document.getElementById('exampleInputPassword1').value
+      }
+
+      cards.push(card)
+      document.querySelector('form').reset();
+
+      // to view what cards have been saved (display purposes)
+      //console.warn('added', { cards });
+      //let pre = document.querySelector('#msg pre');
+      //pre.textContent = '\n ' + JSON.stringify(cards, '\t', 2);
+
+      // saving to local storage
+      localStorage.setItem('MyCardList', JSON.stringify(cards));
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('AddCard').addEventListener('click', addCard);
+
+    });
+
+  </script>
 
   <!--Footer-->
   <footer class="page-footer text-center font-small mdb-color darken-2 mt-4 wow fadeIn">
@@ -103,7 +134,7 @@
       <a class="btn btn-outline-white" href="#" target="_blank" role="button">Descargar Flash Cards
         <i class="fas fa-download ml-2"></i>
       </a>
-      <a class="btn btn-outline-white" href="/addCards" target="_blank" role="button">Crea tus Flash Cards
+      <a class="btn btn-outline-white" href="/addCard" target="_blank" role="button">Crea tus Flash Cards
         <i class="fas fa-graduation-cap ml-2"></i>
       </a>
     </div>
