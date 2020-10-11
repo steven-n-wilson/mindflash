@@ -5,7 +5,7 @@ class card_base:
         self.back = backside
     
     def front(self):
-        return front
+        return self.front
 
     def back(self):
-        return back
+        return self.back
