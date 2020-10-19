@@ -127,32 +127,48 @@
           <!--Grid column-->
           <div class="col-md-6 mb-4">
 
-            <!--Card-->
-            <div class="card">
 
-              <!--Card image-->
-              <div class="view overlay">
-                <div class="embed-responsive embed-responsive-16by9 rounded-top">
-                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/mzCEJVtED0U"
-                    allowfullscreen></iframe>
+
+
+            {% if cards_array is defined %}
+              {% for item in cards_array %}
+
+                <!--Card-->
+                <div class="card">
+
+                  <!--Card image-->
+                  <div class="view overlay">
+                    <div class="embed-responsive embed-responsive-16by9 rounded-top">
+                      <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/mzCEJVtED0U"
+                        allowfullscreen></iframe>
+                    </div>
+                  </div>
+
+                  <!--Card content-->
+                  <div class="card-body">
+                    <!--Title-->
+                    <h4 class="card-title">{{ item.frontside }}</h4>
+                    <!--Text-->
+                    <p class="card-text">{{ item.backside }}</p>
+                    <!-- <p class="card-text">
+                      <strong>5 minutes, a few clicks and... done. You will be surprised at how easy it is.</strong>
+                    </p> -->
+                  </div>
+
                 </div>
-              </div>
+                <!--/.Card-->
+              {% endfor %}
+            {% else %}
+                <p>error?</p>
+            {% endif %}
 
-              <!--Card content-->
-              <div class="card-body">
-                <!--Title-->
-                <h4 class="card-title">Flash Cards Efectivas</h4>
-                <!--Text-->
-                <p class="card-text">Las Flash Cards pueden ayudarte a aprender y memorizar información rápidamente,
-                  y son una de las herramientas más poderosas que puede utilizar cuando llega el momento de estudiar
-                  para los exámenes.</p>
-                <!-- <p class="card-text">
-                  <strong>5 minutes, a few clicks and... done. You will be surprised at how easy it is.</strong>
-                </p> -->
-              </div>
 
-            </div>
-            <!--/.Card-->
+
+
+
+
+
+
 
           </div>
           <!--Grid column-->
