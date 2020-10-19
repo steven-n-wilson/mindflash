@@ -14,6 +14,7 @@ cards = []
 def cardsView():
     # cards.append(1)
     # cards.append(2)
+
     if request.method == "POST":
         if "AddCard" in request.form:
             front = request.form["exampleInputEmail1"]
