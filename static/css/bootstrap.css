@@ -630,7 +630,7 @@ pre code {
 .col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl,
 .col-xl-auto {
   position: relative;
-  width: 100%;
+  width: 400px;
   padding-right: 15px;
   padding-left: 15px;
 }
@@ -4745,7 +4745,7 @@ input[type="button"].btn-block {
   display: flex;
   -ms-flex-direction: column;
   flex-direction: column;
-  min-width: 0;
+
   word-wrap: break-word;
   background-color: rgb(230, 230, 230);
   background-clip: border-box;
@@ -4853,8 +4853,9 @@ input[type="button"].btn-block {
 .card-img-top,
 .card-img-bottom {
   -ms-flex-negative: 0;
-  flex-shrink: 0;
+  flex-shrink: 100%;
   width: 100%;
+  
 }
 
 .card-img,
@@ -4943,9 +4944,9 @@ input[type="button"].btn-block {
 
 @media (min-width: 576px) {
   .card-columns {
-    -webkit-column-count: 3;
-    -moz-column-count: 3;
-    column-count: 3;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
     -webkit-column-gap: 1.25rem;
     -moz-column-gap: 1.25rem;
     column-gap: 1.25rem;
@@ -4954,7 +4955,7 @@ input[type="button"].btn-block {
   }
   .card-columns .card {
     display: inline-block;
-    width: 100%;
+    max-width: 350px;
   }
 }
 
