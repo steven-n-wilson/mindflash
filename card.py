@@ -4,14 +4,16 @@ class card:
                  height: float = None,
                  color: str = None,
                  font: str = None,
-                 text: str = None,
+                 front: str = None,
+                 back: str = None,
                  media_f: str = None
                  ):
         self.color = color
         self.width = width
         self.height = height
         self.font = font
-        self.text = text
+        self.front = front
+        self.back = back
         self.media_f = media_f  # Media file.
         ##just a comment
 
@@ -37,8 +39,11 @@ class card:
     def set_font(self, font):
         self.font = font
 
-    def set_text(self, text):
-        self.text = text
+    def set_front(self, front):
+        self.front = front
+    
+    def set_back(self, back):
+        self.back = back
 
     def set_media_f(self, media_f):
         self.media_f = media_f
@@ -56,8 +61,11 @@ class card:
     def get_font(self):
         return self.font
 
-    def get_text(self):
-        return self.text
+    def get_front(self):
+        return self.front
+
+    def get_back(self):
+        return self.back
 
     def get_media_f(self):
         return self.media_f
