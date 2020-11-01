@@ -203,9 +203,12 @@
                   <h4 class="card-title">{{ item.frontside }}</h4>
                   <!--Text-->
                   <p class="card-text">{{ item.backside }}</p>
-                  <a href="#" target="_blank" class="btn btn-primary btn-md" style="margin-top: 30%;">
-                    Delete
-              </a>
+                  <form action="/" method="POST">
+                    <input type="hidden" id="deleteCard" name="deleteCard" value="{{ item.frontside }}" />
+                    <button id="RemoveCard" name="RemoveCard" class="btn btn-primary btn-md" style="margin-top: 30%;">
+                      Delete
+                    </button>
+                    </form>
                 </div>
 
               </div>

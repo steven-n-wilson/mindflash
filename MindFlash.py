@@ -25,8 +25,18 @@ def cardsView():
                 print(i)
                 print(i.frontside)
                 print(i.backside)
-        else:
-            pass
+
+        elif "RemoveCard" in request.form:
+            delete_val = request.form["deleteCard"]
+            print(delete_val)
+            i = 0
+            for item in cards:
+                if item.frontside == delete_val:
+                    print(item.frontside)
+                    break
+                i+=1
+            cards.pop(i)
+
     return render_template(
         "index.html",
         cards_array = cards
