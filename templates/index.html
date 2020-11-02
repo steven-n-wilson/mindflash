@@ -18,58 +18,106 @@
   <link rel="stylesheet" href="static/css/mdb.min.css">
   <!-- Your custom styles (optional) -->
   <link rel="stylesheet" href="static/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <style>
+  .slider {
+    width: 100%;
+    text-align: center;
+  }
 
-.slider {
-  width: 100%;
-  text-align: center;
-}
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-.item1 {
-  grid-row: 1 / 2;
-}
-.slides {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  
-  /*
+  .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  .item1 {
+    grid-row: 1 / 2;
+  }
+
+  .slides {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+
+    /*
   scroll-snap-points-x: repeat(300px);
   scroll-snap-type: mandatory;
   */
-}
-.slides::-webkit-scrollbar-thumb {
-  background: black;
-  border-radius: 10px;
-}
-.slides::-webkit-scrollbar-track {
-  background: transparent;
-}
-.slides > div {
-  scroll-snap-align: start;
-  flex-shrink: 0;
-  margin-right: 27px;
-  border-radius: 10px;
-  transform-origin: center center;
-  transform: scale(1);
-  transition: transform 0.5s;
-  position: relative;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.slides::-webkit-scrollbar {
-  display: none;
-}
+  }
+
+  .slides::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 10px;
+  }
+
+  .slides::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .slides>div {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    margin-right: 27px;
+    border-radius: 10px;
+    transform-origin: center center;
+    transform: scale(1);
+    transition: transform 0.5s;
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .slides::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* flip the pane when hovered */
+
+  .flip-container.hover .flipper {
+    transform: rotateY(180deg);
+  }
+
+
+
+  /* flip speed */
+
+  .flipper {
+    transition: 0.8s;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+
+
+  /* hide back of pane during swap */
+
+  .front,
+  .back {
+    backface-visibility: hidden;
+    position: absolute;
+  }
+
+
+  /* front pane, placed above back */
+
+  .front {
+    z-index: 2;
+    transform: rotateY(0deg);
+  }
+
+
+  /* back, initially hidden pane */
+
+  .back {
+    transform: rotateY(180deg);
+  }
 </style>
+
 <body>
   <header>
 
@@ -101,7 +149,7 @@
             <li class="nav-item"></li>
             <a class="nav-link waves-effect" href="/addCard">Crear</a>
             </li>
-            
+
             <!-- <li class="nav-item">
               <a class="nav-link waves-effect" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Free
                 tutorials</a>
@@ -111,8 +159,7 @@
           <!-- Right -->
           <ul class="navbar-nav nav-flex-icons">
             <div class="md-form form-sm my-0">
-              <input class="form-control form-control-sm mr-sm-2 mb-0" type="text" placeholder=""
-                aria-label="Search">
+              <input class="form-control form-control-sm mr-sm-2 mb-0" type="text" placeholder="" aria-label="Search">
             </div>
             <button class="btn btn-outline-white btn-sm my-0" type="submit">Search</button>
           </ul>
@@ -164,57 +211,78 @@
       </section>
       <!--Section: Jumbotron-->
       <section>
-      <br>
-      {% if cards_array is defined %}
-      <h1 style="font-weight: 700; text-align: center;">Your FlashCards</h1>
-      {% if cards_array|length < 1 %}
-      <br>
-      <p style="font-size: larger; font-weight: 100; background-color: aquamarine; height: 200px; text-align: center;"><br><br><br>You have no cards yet!</p>
-      <br>
-      {% endif %}
-      <!--Grid row-->
-      <div class="slider" >
-        <div class="slides" style="background-color: aquamarine; max-height: 350px;">
-          
-            
-            <div id="slide-1" >
+        <br>
+        {% if cards_array is defined %}
+        <h1 style="font-weight: 700; text-align: center;">Your FlashCards</h1>
+        {% if cards_array|length < 1 %}
+        <br>
+        <p
+          style="font-size: larger; font-weight: 100; background-color: aquamarine; height: 200px; text-align: center;">
+          <br><br><br>You have no cards yet!</p>
+        <br>
+        {% endif %}
+        <!--Grid row-->
+        <div class="slider">
+          <div class="slides" style="background-color: aquamarine; max-height: 350px;">
+
+
+            <div id="slide-1">
               {% for item in cards_array %}
+
               <!--Card-->
-              <div class="card" style="min-width: 400px; min-height: 300px; margin: 20px;">
+              <div class="flip-container" style="min-width: 400px; min-height: 300px; margin: 5px;">
+                <div class="flipper">
 
-                <!--Card content-->
-                <div class="card-body">
-                  <!--Title-->
-                  <h4 class="card-title">{{ item.frontside }}</h4>
-                  <!--Text-->
-                  <p class="card-text">{{ item.backside }}</p>
-                  <form action="/" method="POST">
-                    <input type="hidden" id="deleteCard" name="deleteCard" value="{{ item.frontside }}" />
-                    <button id="RemoveCard" name="RemoveCard" class="btn btn-primary btn-md" style="margin-top: 30%;">
-                      Delete
-                    </button>
+                  <!-- Front -->
+                  <div class="card front" style="min-width: 400px; min-height: 300px;">
+                    <h4 class="card-title" style="margin-top: 2%;">{{ item.frontside }}</h4>
+                    <form action="/" method="POST">
+                      <input type="hidden" id="deleteCard" name="deleteCard" value="{{ item.frontside }}" />
+                      <button id="RemoveCard" name="RemoveCard" class="btn btn-primary btn-md" style="margin-top: 50%;">
+                        Delete
+                      </button>
                     </form>
-                </div>
+                    <!-- Back -->
+                  </div>
+                  <div class="card back" style="min-width: 400px; min-height: 300px;">
+                    <p class="card-text " style="margin-top: 2%;">{{ item.backside }}</p>
+                    <form action=" /" method="POST">
+                      <input type="hidden" id="deleteCard" name="deleteCard" value="{{ item.frontside }}" />
+                      <button id="RemoveCard" name="RemoveCard" class="btn btn-primary btn-md" style="margin-top: 50%;">
+                        Delete
+                      </button>
+                    </form>
 
+                  </div>
+
+                </div>
               </div>
               <!--/.Card-->
-            {% endfor %}
+              {% endfor %}
             </div>
-          {% else %}
-              <p>error?</p>
-          {% endif %}
-        </div>
+
+            <script>
+              $('.flip-container .flipper').click(function () {
+                $(this).closest('.flip-container').toggleClass('hover');
+                $(this).css('transform, rotateY(180deg)');
+              });
+            </script>
+
+            {% else %}
+            <p>error?</p>
+            {% endif %}
+          </div>
         </div>
       </section>
-      
-     
-          
-        <section> 
-          <br>
-          <br>
+
+
+
+      <section>
+        <br>
+        <br>
         <h1 style="text-align: center; font-weight:600;">COMMUNITY CARD DECKS</h1>
-          <!--Grid column-->
-                  <!--Grid row-->
+        <!--Grid column-->
+        <!--Grid row-->
         <div class="row mb-4 wow fadeIn">
           <!--Grid column-->
           <div class="col-md-6 mb-4">
@@ -228,7 +296,7 @@
         <!--Grid row-->
 
         <!--Grid row-->
-        <div class="row mb-4 wow fadeIn" >
+        <div class="row mb-4 wow fadeIn">
 
           <!--Grid column-->
           <div class="col-md-6 mb-4">
@@ -310,7 +378,8 @@
 
               <!--Card image-->
               <div class="view overlay">
-                <img src="static\img\overlays\romeCover.PNG" class="card-img-top" alt class="card-img-top" alt style="height: 290px;">
+                <img src="static\img\overlays\romeCover.PNG" class="card-img-top" alt class="card-img-top" alt
+                  style="height: 290px;">
                 <a href="#" target="_blank">
                   <div class="mask rgba-white-slight"></div>
                 </a>
@@ -337,31 +406,31 @@
           <!--Grid column-->
           <div class="col-md-6 mb-4">
 
-                       <!--Card-->
-                       <div class="card">
+            <!--Card-->
+            <div class="card">
 
-                        <!--Card image-->
-                        <div class="view overlay">
-                          <img src="static\img\overlays\scienceCover.jpg" class="card-img-top" alt style="height: 290px;">
-                          <a href="#" target="_blank">
-                            <div class="mask rgba-white-slight"></div>
-                          </a>
-                        </div>
-          
-                        <!--Card content-->
-                        <div class="card-body">
-                          <!--Title-->
-                          <h4 class="card-title">Science Flash Cards</h4>
-                          <!--Text-->
-                          <p class="card-text">Science is the study of the nature and behaviour of natural things and the
-                            knowledge that we obtain about them. </p>
-                          <a href="#" target="_blank" class="btn btn-primary btn-md">Ir a Flashcards
-                            <i class="fas fa-play ml-2"></i>
-                          </a>
-                        </div>
-          
-                      </div>
-                      <!--/.Card-->
+              <!--Card image-->
+              <div class="view overlay">
+                <img src="static\img\overlays\scienceCover.jpg" class="card-img-top" alt style="height: 290px;">
+                <a href="#" target="_blank">
+                  <div class="mask rgba-white-slight"></div>
+                </a>
+              </div>
+
+              <!--Card content-->
+              <div class="card-body">
+                <!--Title-->
+                <h4 class="card-title">Science Flash Cards</h4>
+                <!--Text-->
+                <p class="card-text">Science is the study of the nature and behaviour of natural things and the
+                  knowledge that we obtain about them. </p>
+                <a href="#" target="_blank" class="btn btn-primary btn-md">Ir a Flashcards
+                  <i class="fas fa-play ml-2"></i>
+                </a>
+              </div>
+
+            </div>
+            <!--/.Card-->
 
           </div>
           <!--Grid column-->
@@ -374,7 +443,7 @@
           <ul class="pagination pg-blue">
 
             < !-- Arrow left-->
-            <!-- <li class="page-item disabled">
+        <!-- <li class="page-item disabled">
               <a class="page-link" href="#" aria-label="Previous">
                 <span aria-hidden="true">&#xAB;</span>
                 <span class="sr-only">Previous</span>
@@ -406,7 +475,7 @@
               </a>
             </li>
           </ul>
-        </nav> --> 
+        </nav> -->
 
       </section>
       <!--Section: Cards-->
