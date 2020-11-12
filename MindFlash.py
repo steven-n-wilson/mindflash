@@ -5,15 +5,12 @@ from card import *
 
 app = Flask(__name__)
 
-# MYSQL Handlers
-# db = MYSQL database
 
 cards = []
 
+
 @app.route("/", methods=["GET", "POST", "DELETE"])  # main card view page
 def cardsView():
-    # cards.append(1)
-    # cards.append(2)
 
     if request.method == "POST":
         if "AddCard" in request.form:
@@ -34,31 +31,20 @@ def cardsView():
                 if item.frontside == delete_val:
                     print(item.frontside)
                     break
-                i+=1
+                i += 1
             cards.pop(i)
 
     return render_template(
         "index.html",
-        cards_array = cards
+        cards_array=cards
     )
+
 
 @app.route("/addCard", methods=["GET", "POST", "DELETE"])  # add Card page
 def addCard():
-    return render_template(
-        "addCard.html",
-    )
+    return render_template("addCard.html"
+                           )
 
-# @app.route("/", methods=["GET", "POST", "DELETE"])  # main set view page
-# def setsView():
-#     return render_template(
-#         "setView.html",
-#     )
-
-# @app.route("/addSet", methods=["GET", "POST", "DELETE"])  # add set page
-# def addSet():
-#     return render_template(
-#         "addSet.html",
-#     )
 
 if __name__ == "__main__":
     debug = True
